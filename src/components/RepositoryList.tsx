@@ -2,8 +2,14 @@ import { useState, useEffect } from "react"; // Importando hooks do React para u
 import { RepositoryItem } from "./RepositoryItem"; // Importando o componente filho.
 import '../styles/repositories.scss'; // Importando o arquivo de estilos do componente.
 
+interface Repository{
+    name: string;
+    description: string;
+    html_url: string;
+}
+
 export function RepositoryList() {
-    const [repositories, setRepositories] = useState([]); // Utilizando o hook 'useState' para definir o estado do componente.
+    const [repositories, setRepositories] = useState<Repository[]>([]); // Utilizando o hook 'useState' para definir o estado do componente.
 
     useEffect(() => { // Utilizando o hook 'useEffect' para disparar uma função quando algo acontecer na aplicação.
         fetch('https://api.github.com/users/ighorxD/repos') // Chamando uma API para buscar informações.
@@ -16,7 +22,7 @@ export function RepositoryList() {
         <h1>Lista de Repositórios</h1> 
 
         <ul> 
-            {repositories.map(repository => {                                              // Mapeando o estado do componente e retornando um componente 'RepositoryItem' para cada item.
+            {repositories.map(repository => {// Mapeando o estado do componente e retornando um componente 'RepositoryItem' para cada item.
                 return <RepositoryItem key ={repository.name} repository = {repository}/> // Passando as propriedades 'key' e 'repository' para o componente filho.
              })}
         </ul>
